@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReferenceDataService } from '../generator/reference-data.service';
 import { ItemDescriptor } from '../data/ItemDescriptor';
+import { ItemGeneratorService } from '../generator/item-generator.service';
 
 @Component({
   selector: 'app-item-form',
@@ -9,17 +10,14 @@ import { ItemDescriptor } from '../data/ItemDescriptor';
 })
 export class ItemFormComponent implements OnInit {
 
-  constructor(public referenceDataService:ReferenceDataService) {
-    console.log(referenceDataService.rarityTable);
-    console.log(this.referenceDataService.slotsTable.filter(is => is.display));
-    
+  constructor(public referenceDataService:ReferenceDataService, private itemGeneratorService:ItemGeneratorService) {    
    }
 
   ngOnInit(): void {
   }
 
   onSubmit() { 
-    
+    this.itemGeneratorService.generate(Object.assign({}, this.itemWantedDescriptor));
     console.log("Submit !");
   }
 

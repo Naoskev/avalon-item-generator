@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Formulaire de génération</h1>
-    <form #itemForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #itemForm="ngForm">
 
       <div class="form-group">
         <label for="item-level">Niveau</label>

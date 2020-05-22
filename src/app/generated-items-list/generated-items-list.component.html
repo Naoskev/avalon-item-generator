@@ -1,1 +1,7 @@
-<p>generated-items-list works!</p>
+<div class="container">
+    <h2>Objets générés</h2>
+    <div *ngFor="let genItem of itemsList">
+        <div>truc {{genItem.descriptor.level}} {{genItem.statsName}}</div>
+    </div>
+    <div *ngIf="itemsList.length == 0"><i>Aucun objet généré</i></div>
+</div>

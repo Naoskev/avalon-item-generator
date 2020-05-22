@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { ItemGeneratorService } from '../generator/item-generator.service';
+import { Subscription } from 'rxjs';
+import { Item } from '../data/item';
 
 @Component({
   selector: 'app-generated-items-list',
   templateUrl: './generated-items-list.component.html',
   styleUrls: ['./generated-items-list.component.css']
 })
-export class GeneratedItemsListComponent implements OnInit {
+export class GeneratedItemsListComponent implements OnDestroy {
 
-  constructor() { }
+  public itemsList:Item[] = [];
+  private subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(public itemGeneratorService:ItemGeneratorService) {
+
+    this.subscription = itemGeneratorService.generatedItems$.subscribe(list => {
+      this.itemsList.length =0;
+      if(list){
+        this.itemsList = list;
+      }      
+    });
+   }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
-
 }
