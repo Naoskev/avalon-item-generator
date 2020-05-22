@@ -25,7 +25,7 @@
         <select class="form-control" id="item-slot"
         [(ngModel)]="itemWantedDescriptor.slot" name="slot">
           <option [value]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let sl of referenceDataService.slotsTable" [value]="sl">{{sl.name}}</option>
+          <option *ngFor="let sl of displayedSlots" [value]="sl">{{sl.name}}</option>
         </select>
       </div>
 

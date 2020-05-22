@@ -4,61 +4,73 @@ export const slots: ItemSlot[] =[
     {
       "key": "item",
       "name": "Objet",
-      "parentSlotKey": null
+      "parentSlotKey": "",
+      "display": false
     },
     {
       "key": "equipment",
       "name": "Equipement",
-      "parentSlotKey": "item"
+      "parentSlotKey": "item",
+      "display": false
     },
     {
       "key": "body",
       "name": "Corps",
-      "parentSlotKey": "equipment"
+      "parentSlotKey": "equipment",
+      "display": true
     },
     {
       "key": "arms",
       "name": "Bras",
-      "parentSlotKey": "body"
+      "parentSlotKey": "body",
+      "display": true
     },
     {
       "key": "legs",
       "name": "Jambes",
-      "parentSlotKey": "body"
+      "parentSlotKey": "body",
+      "display": true
     },
     {
       "key": "head",
       "name": "Tête",
-      "parentSlotKey": "body"
+      "parentSlotKey": "body",
+      "display": true
     },
     {
       "key": "torso",
       "name": "Torse",
-      "parentSlotKey": "body"
+      "parentSlotKey": "body",
+      "display": true
     },
     {
       "key": "weapon",
       "name": "Arme",
-      "parentSlotKey": "equipment"
+      "parentSlotKey": "equipment",
+      "display": true
     },
     {
       "key": "two-handed",
       "name": "Arme à deux mains",
-      "parentSlotKey": "weapon"
+      "parentSlotKey": "weapon",
+      "display": true
     },
     {
       "key": "single-handed",
       "name": "Arme à une main",
-      "parentSlotKey": "weapon"
+      "parentSlotKey": "weapon",
+      "display": true
     },
     {
       "key": "main-weapon",
       "name": "Arme principale",
-      "parentSlotKey": "single-handed"
+      "parentSlotKey": "single-handed",
+      "display": true
     },
     {
       "key": "secondary-weapon",
       "name": "Arme secondaire",
-      "parentSlotKey": "single-handed"
+      "parentSlotKey": "single-handed",
+      "display": true
     }
    ];

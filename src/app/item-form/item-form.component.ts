@@ -11,7 +11,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor(public referenceDataService:ReferenceDataService) {
     console.log(referenceDataService.rarityTable);
-    console.log(referenceDataService.secondaryBonusRef);
+    console.log(this.referenceDataService.slotsTable.filter(is => is.display));
     
    }
 
@@ -24,6 +24,8 @@ export class ItemFormComponent implements OnInit {
   }
 
   public levelList = [...Array(11).keys()].splice(1);
+
+  public displayedSlots = this.referenceDataService.slotsTable.filter(is => is.display);
 
   public itemWantedDescriptor: ItemDescriptor = new ItemDescriptor(); 
 
