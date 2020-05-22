@@ -1,22 +1,25 @@
 <div class="container">
     <h1>Formulaire de génération</h1>
-    <form>
+    <form #itemForm="ngForm">
       <div class="form-group">
         <label for="item-level">Niveau</label>
-        <input type="number" class="form-control" id="item-level" required>
+        <input type="number" class="form-control" id="item-level" [(ngModel)]="itemWantedDescriptor.level" name="level">
       </div>
 
       <div class="form-group">
         <label for="item-rarity">Rareté</label>
-        <input type="text" class="form-control" id="item-rarity">
+        <select class="form-control" id="item-rarity"
+        [(ngModel)]="itemWantedDescriptor.rarityIndex" name="rarityIndex">
+          <option [value]="null"><i>Random</i></option>
+          <option *ngFor="let rar of referenceDataService.rarityTable" [value]="rar.rarityIndex">{{rar.rarityName}}</option>
+        </select>
       </div>
-      
+
       <div class="form-group">
         <label for="item-slot">Emplacement</label>
         <input type="text" class="form-control" id="item-slot">
       </div>
 
       <button type="submit" class="btn btn-success">Générer !</button>
-
     </form>
 </div>

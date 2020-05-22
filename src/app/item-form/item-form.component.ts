@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReferenceDataService } from '../generator/reference-data.service';
+import { ItemDescriptor } from '../data/ItemDescriptor';
 
 @Component({
   selector: 'app-item-form',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(public referenceDataService:ReferenceDataService) {
+    console.log(referenceDataService.rarityTable);
+    console.log(referenceDataService.secondaryBonusRef);
+    
+   }
 
   ngOnInit(): void {
   }
+
+  onSubmit() { 
+    
+    console.log("Submit !");
+  }
+
+  public itemWantedDescriptor: ItemDescriptor = new ItemDescriptor(); 
 
 }
