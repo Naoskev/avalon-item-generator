@@ -23,6 +23,8 @@ export class ItemFormComponent implements OnInit {
     console.log("Submit !");
   }
 
+  public levelList = [...Array(11).keys()].splice(1);
+
   public itemWantedDescriptor: ItemDescriptor = new ItemDescriptor(); 
 
 }
