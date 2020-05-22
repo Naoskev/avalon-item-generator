@@ -1,4 +1,4 @@
-export class ItemSecondaryBonus {
+export class SecondaryBonusRef {
     public level:number;
     public rarityIndex: number;
     public elementsMastery: number;

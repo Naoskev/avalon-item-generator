@@ -1,4 +1,4 @@
-export class ItemSecondaryBonus {
+export class SecondaryBonusCombinationRef {
     public slotKey: string;
     public minLevel:number;
     public minRarityIndex: number;
