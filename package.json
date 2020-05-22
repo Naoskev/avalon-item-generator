@@ -1,16 +1,18 @@
 {
-  "name": "angular-electron",
-  "version": "0.0.0",
+  "name": "avalon-item-generator",
+  "version": "0.1.0",
+  "description": "Générateur d'objet pour Avalon",
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start:dev": "ng serve",
+    "start": "npm run build:prod && npm run electron",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron .",
-    "electron-build": "ng build --prod && electron ."
+    "electron": "electron ."
   },
   "private": true,
   "dependencies": {
