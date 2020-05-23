@@ -3,4 +3,5 @@ export class ItemSlot {
     public key: string;
     public parentSlotKey: string;
     public display: boolean;
+    public terminal: boolean;
 }
