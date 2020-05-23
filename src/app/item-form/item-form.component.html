@@ -6,8 +6,8 @@
         <label for="item-level">Niveau</label>
         <select class="form-control" id="item-level"
         [(ngModel)]="itemWantedDescriptor.level" name="level">
-          <option [value]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let lv of levelList" [value]="lv">{{lv}}</option>
+          <option [ngValue]="null" class="random-opt">Aléatoire</option>
+          <option *ngFor="let lv of levelList" [ngValue]="lv">{{lv}}</option>
         </select>
       </div>
 
@@ -15,8 +15,8 @@
         <label for="item-rarity">Rareté</label>
         <select class="form-control" id="item-rarity"
         [(ngModel)]="itemWantedDescriptor.rarityIndex" name="rarityIndex">
-          <option [value]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let rar of referenceDataService.rarityTable" [value]="rar.rarityIndex">{{rar.rarityName}}</option>
+          <option [ngValue]="null" class="random-opt">Aléatoire</option>
+          <option *ngFor="let rar of referenceDataService.rarityTable" [ngValue]="rar.rarityIndex">{{rar.rarityName}}</option>
         </select>
       </div>
 
@@ -24,8 +24,8 @@
         <label for="item-slot">Emplacement</label>
         <select class="form-control" id="item-slot"
         [(ngModel)]="itemWantedDescriptor.slot" name="slot">
-          <option [value]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let sl of displayedSlots" [value]="sl">{{sl.name}}</option>
+          <option [ngValue]="null" class="random-opt">Aléatoire</option>
+          <option *ngFor="let sl of displayedSlots" [ngValue]="sl">{{sl.name}}</option>
         </select>
       </div>
 
