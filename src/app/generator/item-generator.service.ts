@@ -36,7 +36,7 @@ export class ItemGeneratorService {
   }
 
   private generateRandomSlot(): ItemSlot {
-    return sample(this.referenceDataService.slotsTable);
+    return sample(this.referenceDataService.slotsTable.filter(st => st.terminal));
   }
 
   private generateRandomRarityIndex(): number {
@@ -45,7 +45,7 @@ export class ItemGeneratorService {
 
   private getTerminalSlot(originSlot:ItemSlot): ItemSlot {
     if (originSlot.terminal) return originSlot;
-    return this.getTerminalSlot(this.referenceDataService.slotsTable.find(s => s.parentSlotKey == originSlot.key));
+    return sample(this.referenceDataService.slotsTable.filter(s => s.terminal && this.isCurrentOrParentSlot(s, originSlot.key)));
   }
 
   private isCurrentOrParentSlot(originSlot:ItemSlot, searchedKey:string): boolean {
