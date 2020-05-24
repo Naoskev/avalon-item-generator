@@ -6,6 +6,7 @@ import { Subject, Observable, from } from 'rxjs';
 import { ItemSlot } from '../data/itemSlot';
 import { sample } from 'lodash';
 import { MainBonusRef } from '../data/referenceTables/mainBonusRef';
+import { rarity } from 'json-reference-tables/rarity';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class ItemGeneratorService {
     let items: Item[] = [];
     for(let i:number = 0; i < nbToGenerate; i++){
       let descriptor: ItemDescriptor = new ItemDescriptor();
-      descriptor.level = itemDescriptor.level ?? this.generateRandomLevel();
       descriptor.rarityIndex = itemDescriptor.rarityIndex ?? this.generateRandomRarityIndex();
+      descriptor.level = itemDescriptor.level ?? this.generateRandomLevel(descriptor.rarityIndex);
       descriptor.slot = this.getTerminalSlot(Object.assign({}, itemDescriptor.slot ?? this.generateRandomSlot()));
 
       items.push(new Item(descriptor, "fluff", this.selectMainBonus(descriptor), []));
@@ -31,8 +32,13 @@ export class ItemGeneratorService {
   }
 
 
-  private generateRandomLevel(): number {
-    return Math.floor(1 + Math.random() *10);
+  private generateRandomLevel(rarityIndex:number): number {
+    let offset:number = 1;
+    if (rarityIndex != null){
+      let rarity = this.referenceDataService.rarityTable.find(r => r.rarityIndex == rarityIndex);
+      offset = rarity.rarityMinLevel;
+    }
+    return Math.floor(offset + Math.random() * (11-offset));
   }
 
   private generateRandomSlot(): ItemSlot {
