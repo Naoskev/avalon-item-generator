@@ -10,7 +10,6 @@ export class Item {
         public fluffName: string,
         public mainBonus: string,
         public secondaryBonus: ItemSecondaryBonus[]){
-
-        this.statsName = fluffName + " " + (mainBonus != null ? mainBonus +" " :"") + secondaryBonus.map(sb => sb.bonusName + ", ")
+        this.statsName = fluffName + " " + (mainBonus != null ? mainBonus +" " :"") + secondaryBonus.map(sb => sb.readableName).join(" | ");
     }
 }

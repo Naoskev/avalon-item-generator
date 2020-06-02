@@ -4,9 +4,8 @@ export class ItemSecondaryBonus {
 
     public constructor(public bonusValue: number,
         public bonusName: string,
-        public bonusKey: string)
+        public bonusLabel: string)
     {
-        this.readableName = "+ "+ bonusValue + " "+bonusName; 
-
+        this.readableName = "+ "+ bonusValue + " " + bonusLabel + " "+bonusName; 
     }
 }

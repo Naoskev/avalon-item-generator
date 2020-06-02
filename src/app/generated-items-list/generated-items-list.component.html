@@ -1,7 +1,7 @@
 <div class="container">
     <h2>Objets générés</h2>
     <div *ngFor="let genItem of itemsList">
-        <div>Level: {{genItem.descriptor.level}}, Rarirty: {{genItem.descriptor.rarityIndex}}, Slot: {{genItem.descriptor.slot.name}}, {{genItem.statsName}}</div>
+        <div>Level: {{genItem.descriptor.level}}, Rarity: {{genItem.descriptor.rarityIndex}}, Slot: {{genItem.descriptor.slot.name}}, {{genItem.statsName}}</div>
     </div>
     <div *ngIf="itemsList.length == 0"><i>Aucun objet généré</i></div>
 </div>
