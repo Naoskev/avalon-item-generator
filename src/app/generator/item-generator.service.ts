@@ -1,12 +1,15 @@
+
 import { Injectable } from '@angular/core';
 import { Item } from '../data/item';
 import { ReferenceDataService } from './reference-data.service';
 import { ItemDescriptor } from '../data/ItemDescriptor';
 import { Subject, Observable, from } from 'rxjs';
 import { ItemSlot } from '../data/itemSlot';
-import { sample } from 'lodash';
+import { sample, orderBy } from 'lodash';
 import { MainBonusRef } from '../data/referenceTables/mainBonusRef';
 import { rarity } from 'json-reference-tables/rarity';
+import { SecondaryBonusCombinationRef } from '../data/referenceTables/secondaryBonusCombinationRef';
+import { ItemSecondaryBonus } from '../data/itemSecondaryBonus';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +28,35 @@ export class ItemGeneratorService {
       descriptor.level = itemDescriptor.level ?? this.generateRandomLevel(descriptor.rarityIndex);
       descriptor.slot = this.getTerminalSlot(Object.assign({}, itemDescriptor.slot ?? this.generateRandomSlot()));
 
-      items.push(new Item(descriptor, "fluff", this.selectMainBonus(descriptor), []));
+      let combination: SecondaryBonusCombinationRef = orderBy(this.referenceDataService.secondaryBonusCombinationRef
+        .filter(sbc => this.isCurrentOrParentSlot(descriptor.slot, sbc.slotKey) && descriptor.level >= sbc.minLevel && descriptor.rarityIndex >= sbc.minRarityIndex),
+        ["minLevel", "minRarityIndex"], ["desc", "desc"])[0];
+
+      let secondaryVals = this.referenceDataService.secondaryBonusRef.find(sbr => sbr.level == descriptor.level && sbr.rarityIndex == descriptor.rarityIndex);
+      let secondaryBonus: ItemSecondaryBonus[] = [];
+      for (let i:number =0; i < combination.elementsDefenseNumber; i++){
+        let type = sample(this.referenceDataService.defBonus.concat(this.referenceDataService.elementsMasteries));
+        let bn: ItemSecondaryBonus = null;
+        if(type == this.referenceDataService.defBonus[0]){
+          bn = new ItemSecondaryBonus(secondaryVals.HP, type, "");
+        }
+        else {
+          bn = new ItemSecondaryBonus(secondaryVals.elementsDefense, type, this.referenceDataService.defLabel);
+        }
+        secondaryBonus.push(bn);
+      }
+      for (let i:number =0; i < combination.elementsMasteryNumber; i++){
+        let type = sample(this.referenceDataService.elementsMasteries);
+        secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.elementsMastery, type, this.referenceDataService.masteryLabel));
+      }
+      for (let i:number =0; i < combination.lookNumber; i++){
+        let type = sample(this.referenceDataService.lookBonusRef);
+        if(type != null){
+          secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.look, type, ""));
+        }
+      }
+
+      items.push(new Item(descriptor, "", this.selectMainBonus(descriptor), secondaryBonus));
     }
 
     this.generatedItemsSource.next(items);

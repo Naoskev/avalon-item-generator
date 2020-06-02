@@ -36,4 +36,13 @@ export class ReferenceDataService {
 
   public slotsTable: ItemSlot[];
 
+  public readonly lookBonusRef: string[] = [null, "Edgy", "Kawaii", "xD"];
+
+  public readonly elementsMasteries: string[] = ["feu", "eau", "air", "terre"];
+
+  public readonly defLabel: string = "Def.";
+
+  public readonly masteryLabel: string = "M.";
+
+  public readonly defBonus: string[] = ["PV"];
 }
