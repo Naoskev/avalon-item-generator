@@ -26,6 +26,7 @@ export class ItemGeneratorService {
     for(let i:number = 0; i < nbToGenerate; i++){
       let descriptor: ItemDescriptor = new ItemDescriptor();
       descriptor.rarityIndex = itemDescriptor.rarityIndex ?? this.generateRandomRarityIndex();
+      descriptor.rarityName = this.referenceDataService.rarityTable.find(r => r.rarityIndex == descriptor.rarityIndex).rarityName;
       descriptor.level = itemDescriptor.level ?? this.generateRandomLevel(descriptor.rarityIndex);
       descriptor.slot = this.getTerminalSlot(Object.assign({}, itemDescriptor.slot ?? this.generateRandomSlot()));
 

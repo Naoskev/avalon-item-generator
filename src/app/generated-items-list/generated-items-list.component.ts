@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ItemGeneratorService } from '../generator/item-generator.service';
 import { Subscription } from 'rxjs';
 import { Item } from '../data/item';
+import { sortBy } from 'lodash';
 
 @Component({
   selector: 'app-generated-items-list',
@@ -18,7 +19,7 @@ export class GeneratedItemsListComponent implements OnDestroy {
     this.subscription = itemGeneratorService.generatedItems$.subscribe(list => {
       this.itemsList.length =0;
       if(list){
-        this.itemsList = list;
+        this.itemsList = sortBy(list, ['fluffName', 'descriptor.level', 'descriptor.rarityIndex', 'descriptor.slot.name']);
       }      
     });
    }

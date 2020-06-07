@@ -1,7 +1,32 @@
 <div class="container">
     <h2>Objets générés</h2>
-    <div *ngFor="let genItem of itemsList">
-        <div>Level: {{genItem.descriptor.level}}, Rarity: {{genItem.descriptor.rarityIndex}}, Slot: {{genItem.descriptor.slot.name}}, {{genItem.statsName}}</div>
-    </div>
     <div *ngIf="itemsList.length == 0"><i>Aucun objet généré</i></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Niveau</th>
+          <th scope="col" >Rareté</th>
+          <th scope="col" >Emplacement</th>
+          <th scope="col" >Bonus principal</th>
+          <th scope="col" >Maitrises</th>
+          <th scope="col" >Def. elem.</th>
+          <th scope="col" >PV</th>
+          <th scope="col">Apparence</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemsList">
+                <td>{{item.fluffName}}</td>
+                <td>{{item.descriptor.level}}</td>
+                <td>{{item.descriptor.rarityName}}</td>
+                <td>{{item.descriptor.slot.name}}</td>
+                <td>{{item.mainBonus}}</td>
+                <td>{{ item.getItemMasteries()}}</td>
+                <td>{{ item.getItemElementDefenses() }}</td>
+                <td>{{ item.getHP() }}</td>
+                <td>{{ item.getLook() }}</td>
+            </tr>
+        </tbody>
+      </table>
 </div>
