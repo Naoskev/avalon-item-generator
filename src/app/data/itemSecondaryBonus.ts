@@ -1,11 +1,10 @@
+import { BonusKind } from './secondaryBonusDescriptor';
+
 export class ItemSecondaryBonus {    
 
-    public readableName: string;
-
     public constructor(public bonusValue: number,
-        public bonusName: string,
-        public bonusLabel: string)
+        public kind: BonusKind,
+        public nature: string)
     {
-        this.readableName = "+ "+ bonusValue + " " + bonusLabel + " "+bonusName; 
     }
 }

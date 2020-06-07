@@ -10,6 +10,7 @@ import { MainBonusRef } from '../data/referenceTables/mainBonusRef';
 import { rarity } from 'json-reference-tables/rarity';
 import { SecondaryBonusCombinationRef } from '../data/referenceTables/secondaryBonusCombinationRef';
 import { ItemSecondaryBonus } from '../data/itemSecondaryBonus';
+import { BonusKind, ElementKind } from '../data/secondaryBonusDescriptor';
 
 @Injectable({
   providedIn: 'root'
@@ -35,24 +36,24 @@ export class ItemGeneratorService {
       let secondaryVals = this.referenceDataService.secondaryBonusRef.find(sbr => sbr.level == descriptor.level && sbr.rarityIndex == descriptor.rarityIndex);
       let secondaryBonus: ItemSecondaryBonus[] = [];
       for (let i:number =0; i < combination.elementsDefenseNumber; i++){
-        let type = sample(this.referenceDataService.defBonus.concat(this.referenceDataService.elementsMasteries));
+        let type = sample([BonusKind.HP, ElementKind.AIR, ElementKind.EARTH, ElementKind.FIRE, ElementKind.WATER]);
         let bn: ItemSecondaryBonus = null;
-        if(type == this.referenceDataService.defBonus[0]){
+        if(type === BonusKind.HP){
           bn = new ItemSecondaryBonus(secondaryVals.HP, type, "");
         }
         else {
-          bn = new ItemSecondaryBonus(secondaryVals.elementsDefense, type, this.referenceDataService.defLabel);
+          bn = new ItemSecondaryBonus(secondaryVals.elementsDefense, BonusKind.ElementDefense, type as string);
         }
         secondaryBonus.push(bn);
       }
       for (let i:number =0; i < combination.elementsMasteryNumber; i++){
-        let type = sample(this.referenceDataService.elementsMasteries);
-        secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.elementsMastery, type, this.referenceDataService.masteryLabel));
+        let nature = sample(this.referenceDataService.elementsMasteries);
+        secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.elementsMastery, BonusKind.ElementMastery, nature));
       }
       for (let i:number =0; i < combination.lookNumber; i++){
-        let type = sample(this.referenceDataService.lookBonusRef);
-        if(type != null){
-          secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.look, type, ""));
+        let nature = sample(this.referenceDataService.lookBonusRef);
+        if(nature != null){
+          secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.look, BonusKind.Look, nature));
         }
       }
 
