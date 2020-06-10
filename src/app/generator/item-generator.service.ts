@@ -25,7 +25,7 @@ export class ItemGeneratorService {
     let items: Item[] = [];
     for(let i:number = 0; i < nbToGenerate; i++){
       let descriptor: ItemDescriptor = new ItemDescriptor();
-      descriptor.rarityIndex = itemDescriptor.rarityIndex ?? this.generateRandomRarityIndex();
+      descriptor.rarityIndex = itemDescriptor.rarityIndex ?? this.generateRandomRarityIndex(itemDescriptor.level);
       descriptor.rarityName = this.referenceDataService.rarityTable.find(r => r.rarityIndex == descriptor.rarityIndex).rarityName;
       descriptor.level = itemDescriptor.level ?? this.generateRandomLevel(descriptor.rarityIndex);
       descriptor.slot = this.getTerminalSlot(Object.assign({}, itemDescriptor.slot ?? this.generateRandomSlot()));
@@ -78,8 +78,12 @@ export class ItemGeneratorService {
     return sample(this.referenceDataService.slotsTable.filter(st => st.terminal));
   }
 
-  private generateRandomRarityIndex(): number {
-    return sample(this.referenceDataService.rarityTable).rarityIndex;    
+  private generateRandomRarityIndex(level:number): number {
+    let rarityRefs = this.referenceDataService.rarityTable;
+    if (level != null){
+      rarityRefs = rarityRefs.filter(rr => rr.rarityMinLevel <= level);
+    }
+    return sample(rarityRefs).rarityIndex;    
   }
 
   private getTerminalSlot(originSlot:ItemSlot): ItemSlot {
