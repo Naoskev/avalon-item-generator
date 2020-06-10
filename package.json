@@ -12,7 +12,26 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron ."
+    "electron": "electron .",
+    "pack": "npm run build:prod && electron-builder --dir",
+    "dist": "npm run build:prod && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "deploy": "copyfiles -f dist/angular-electron/**/* ../avalon-public"
+  },
+  "build": {
+    "appId": "fr.5d6corp.avalon-item-generator",
+    "productName": "Avalon item generator",
+    "files": [
+      "dist/angular-electron/**/*",
+      "main.js"
+    ],
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "src/favicon.png"
+    }
   },
   "private": true,
   "dependencies": {
@@ -41,7 +60,9 @@
     "@types/lodash": "^4.14.152",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "copyfiles": "^2.3.0",
     "electron": "^9.0.0",
+    "electron-builder": "^22.7.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~5.0.0",
