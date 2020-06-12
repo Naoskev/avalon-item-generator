@@ -1,34 +1,36 @@
 <div class="container">
-    <h1>Formulaire de génération</h1>
+    <h1 class="text-center">Formulaire de génération</h1>
     <form (ngSubmit)="onSubmit()" #itemForm="ngForm">
-
-      <div class="form-group">
-        <label for="item-level">Niveau</label>
-        <select class="form-control" id="item-level"
-        [(ngModel)]="itemWantedDescriptor.level" name="level">
-          <option [ngValue]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let lv of levelList" [ngValue]="lv">{{lv}}</option>
-        </select>
+      <div class="row align-items-center" >
+        <div class="form-group col">
+          <label for="item-level">Niveau</label>
+          <select class="form-control" id="item-level"
+          [(ngModel)]="itemWantedDescriptor.level" name="level">
+            <option [ngValue]="null" class="random-opt">Aléatoire</option>
+            <option *ngFor="let lv of levelList" [ngValue]="lv">{{lv}}</option>
+          </select>
+        </div>
+  
+        <div class="form-group col">
+          <label for="item-rarity">Rareté</label>
+          <select class="form-control" id="item-rarity"
+          [(ngModel)]="itemWantedDescriptor.rarityIndex" name="rarityIndex">
+            <option [ngValue]="null" class="random-opt">Aléatoire</option>
+            <option *ngFor="let rar of referenceDataService.rarityTable" [ngValue]="rar.rarityIndex">{{rar.rarityName}}</option>
+          </select>
+        </div>
+  
+        <div class="form-group col">
+          <label for="item-slot">Emplacement</label>
+          <select class="form-control" id="item-slot"
+          [(ngModel)]="itemWantedDescriptor.slot" name="slot">
+            <option [ngValue]="null" class="random-opt">Aléatoire</option>
+            <option *ngFor="let sl of displayedSlots" [ngValue]="sl">{{sl.name}}</option>
+          </select>
+        </div>       
+        <div class="col">          
+          <button type="submit" class="btn btn-success" style="margin-top: 12px;">Générer !</button>
+        </div> 
       </div>
-
-      <div class="form-group">
-        <label for="item-rarity">Rareté</label>
-        <select class="form-control" id="item-rarity"
-        [(ngModel)]="itemWantedDescriptor.rarityIndex" name="rarityIndex">
-          <option [ngValue]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let rar of referenceDataService.rarityTable" [ngValue]="rar.rarityIndex">{{rar.rarityName}}</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="item-slot">Emplacement</label>
-        <select class="form-control" id="item-slot"
-        [(ngModel)]="itemWantedDescriptor.slot" name="slot">
-          <option [ngValue]="null" class="random-opt">Aléatoire</option>
-          <option *ngFor="let sl of displayedSlots" [ngValue]="sl">{{sl.name}}</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-success">Générer !</button>
     </form>
 </div>

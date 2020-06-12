@@ -1,7 +1,6 @@
-<div class="container">
-    <h2>Objets générés</h2>
-    <div *ngIf="itemsList.length == 0"><i>Aucun objet généré</i></div>
-    <table class="table table-striped">
+<div class="container-fluid">
+    <h3 class="text-center">Objets générés</h3>
+    <table *ngIf="itemsList.length > 0; else elseBlock" class="table table-striped">
         <thead>
         <tr>
           <th scope="col">#</th>
@@ -29,4 +28,10 @@
             </tr>
         </tbody>
       </table>
+      
+      <ng-template #elseBlock>
+        <div class="col text-center">
+          <i class="text-center">Aucun objet généré</i>
+        </div>
+      </ng-template>
 </div>
