@@ -5,6 +5,8 @@ import { BonusKind } from './secondaryBonusDescriptor';
 import { NameListBySlot } from './referenceTables/nameListBySlot';
 import * as _ from 'lodash';
 import { NameListByLook } from './referenceTables/nameListByLook';
+import { NameListByElements } from './referenceTables/nameListByElements';
+import { element } from 'protractor';
 
 export class Item {
 
@@ -41,9 +43,13 @@ export class Item {
       return look != null ? "+"+look.bonusValue + " " + look.nature : "";
     }
 
-    public buildName(namesBySlot:NameListBySlot[], namesByLook: NameListByLook[]): Item {
+    public buildName(namesBySlot:NameListBySlot[], namesByLook: NameListByLook[], namesByElements: NameListByElements[]): Item {
 
       this.fluffName = _.sample(namesBySlot.find(s => s.slotKey == this.descriptor.slot.key).names);
+
+      let elements = _.uniq(this.secondaryBonus.filter(b => b.kind == BonusKind.ElementDefense || BonusKind.ElementMastery).map(b => b.nature));
+      let namesForElements = namesByElements.find(s => _.isEqual(_.sortBy(s.elements), elements.sort())).names;
+      this.fluffName += " " + _.sample(namesForElements);
 
       let lookBonus = this.getLookBonus();
       if(lookBonus != null) {

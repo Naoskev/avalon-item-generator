@@ -6,6 +6,7 @@ import {secondaryBonusCombination} from '../../../json-reference-tables/secondar
 import {mainBonus} from '../../../json-reference-tables/mainBonus';
 import {namesListBySlot} from '../../../json-reference-tables/nameListBySlot';
 import {namesListByLook} from '../../../json-reference-tables/nameListByLook';
+import {listByElements} from '../../../json-reference-tables/namesListByElements';
 import { RarityRef } from '../data/referenceTables/rarityRef';
 import { SecondaryBonusRef } from '../data/referenceTables/secondaryBonusRef';
 import {slots} from '../../../json-reference-tables/slots';
@@ -14,6 +15,7 @@ import { SecondaryBonusCombinationRef } from '../data/referenceTables/secondaryB
 import { MainBonusRef } from '../data/referenceTables/mainBonusRef';
 import { NameListBySlot } from '../data/referenceTables/nameListBySlot';
 import { NameListByLook } from '../data/referenceTables/nameListByLook';
+import { NameListByElements } from '../data/referenceTables/nameListByElements';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +32,7 @@ export class ReferenceDataService {
     this.mainBonusRef = mainBonus;
     this.namesBySlot = namesListBySlot;
     this.namesByLook = namesListByLook;
+    this.namesByElements = listByElements;
   }
 
   public rarityTable: RarityRef[];
@@ -45,6 +48,8 @@ export class ReferenceDataService {
   public namesBySlot: NameListBySlot[];
 
   public namesByLook: NameListByLook[];
+
+  public namesByElements: NameListByElements[];
 
   public readonly lookBonusRef: string[] = [null, "Edgy", "Kawaii", "xD"];
 
