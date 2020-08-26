@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Item } from '../data/item';
+import { BonusKind } from '../data/secondaryBonusDescriptor';
+import { ItemSecondaryBonus } from '../data/itemSecondaryBonus';
+import { sumBy } from 'lodash';
 
 @Component({
   selector: 'app-generated-item',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneratedItemComponent implements OnInit {
 
+  @Input() item:Item;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

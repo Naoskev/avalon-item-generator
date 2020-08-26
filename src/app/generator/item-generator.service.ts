@@ -58,7 +58,7 @@ export class ItemGeneratorService {
         }
       }
 
-      items.push(new Item(descriptor, "", this.selectMainBonus(descriptor), secondaryBonus));
+      items.push(new Item(descriptor, this.selectMainBonus(descriptor), secondaryBonus).buildName(this.referenceDataService.namesBySlot, this.referenceDataService.namesByLook));
     }
 
     this.generatedItemsSource.next(items);
