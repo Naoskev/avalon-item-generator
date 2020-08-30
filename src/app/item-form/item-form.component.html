@@ -5,7 +5,7 @@
         <div class="form-group col">
           <label for="item-level">Niveau</label>
           <select class="form-control" id="item-level"
-          [(ngModel)]="itemWantedDescriptor.level" name="level">
+          [(ngModel)]="itemWantedDescriptor.level" name="level" (change)="filterRarity()">
             <option [ngValue]="null" class="random-opt">Aléatoire</option>
             <option *ngFor="let lv of levelList" [ngValue]="lv">{{lv}}</option>
           </select>
@@ -16,7 +16,7 @@
           <select class="form-control" id="item-rarity"
           [(ngModel)]="itemWantedDescriptor.rarityIndex" name="rarityIndex">
             <option [ngValue]="null" class="random-opt">Aléatoire</option>
-            <option *ngFor="let rar of referenceDataService.rarityTable" [ngValue]="rar.rarityIndex">{{rar.rarityName}}</option>
+            <option *ngFor="let rar of rarityList" [ngValue]="rar.rarityIndex">{{rar.rarityName}}</option>
           </select>
         </div>
   
