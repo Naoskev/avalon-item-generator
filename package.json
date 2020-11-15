@@ -1,6 +1,6 @@
 {
   "name": "avalon-item-generator",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Générateur d'objet pour Avalon",
   "main": "main.js",
   "scripts": {
