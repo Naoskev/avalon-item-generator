@@ -17,6 +17,9 @@ import { BonusKind, ElementKind } from '../data/secondaryBonusDescriptor';
 })
 export class ItemGeneratorService {
 
+
+  private readonly magixString: string = "+2 bonus de résistance";
+
   constructor(private referenceDataService: ReferenceDataService) { }
 
   public generate(itemDescriptor:ItemDescriptor, nbToGenerate: number = 10)
@@ -29,6 +32,16 @@ export class ItemGeneratorService {
       descriptor.rarityName = this.referenceDataService.rarityTable.find(r => r.rarityIndex == descriptor.rarityIndex).rarityName;
       descriptor.level = itemDescriptor.level ?? this.generateRandomLevel(descriptor.rarityIndex);
       descriptor.slot = this.getTerminalSlot(Object.assign({}, itemDescriptor.slot ?? this.generateRandomSlot()));
+
+      let mainBonus =  this.selectMainBonus(descriptor);
+      let supplementaryDefBonus = 0;
+      if (mainBonus && mainBonus.startsWith(this.magixString)){
+        supplementaryDefBonus = 2;
+        mainBonus = mainBonus.replace(this.magixString, "");
+        if (mainBonus[0] == ","){
+          mainBonus = mainBonus.substring(1);
+        }
+      }
 
       let combination: SecondaryBonusCombinationRef = orderBy(this.referenceDataService.secondaryBonusCombinationRef
         .filter(sbc => this.isCurrentOrParentSlot(descriptor.slot, sbc.slotKey) && descriptor.level >= sbc.minLevel && descriptor.rarityIndex >= sbc.minRarityIndex),
@@ -47,6 +60,10 @@ export class ItemGeneratorService {
         }
         secondaryBonus.push(bn);
       }
+      for (let i:number =0; i < supplementaryDefBonus; i++){
+        let type = sample(this.referenceDataService.elementsDefenses);
+        secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.elementsDefense, BonusKind.ElementDefense, type as string));
+      }
       for (let i:number =0; i < combination.elementsMasteryNumber; i++){
         let nature = sample(this.referenceDataService.elementsMasteries);
         secondaryBonus.push(new ItemSecondaryBonus(secondaryVals.elementsMastery, BonusKind.ElementMastery, nature));
@@ -59,7 +76,7 @@ export class ItemGeneratorService {
       }
 
       items.push( 
-        new Item(descriptor, this.selectMainBonus(descriptor), secondaryBonus)
+        new Item(descriptor, mainBonus, secondaryBonus)
               .buildName(this.referenceDataService.namesBySlot, this.referenceDataService.namesByLook, this.referenceDataService.namesByElements));
     }
 

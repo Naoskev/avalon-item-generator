@@ -16,6 +16,7 @@ import { MainBonusRef } from '../data/referenceTables/mainBonusRef';
 import { NameListBySlot } from '../data/referenceTables/nameListBySlot';
 import { NameListByLook } from '../data/referenceTables/nameListByLook';
 import { NameListByElements } from '../data/referenceTables/nameListByElements';
+import { ElementKind } from '../data/secondaryBonusDescriptor';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +54,9 @@ export class ReferenceDataService {
 
   public readonly lookBonusRef: string[] = [null, "Edgy", "Kawaii", "xD"];
 
-  public readonly elementsMasteries: string[] = ["feu", "eau", "air", "terre"];
+  public readonly elementsMasteries: string[] = [ElementKind.AIR, ElementKind.EARTH, ElementKind.FIRE, ElementKind.WATER];
+
+  public readonly elementsDefenses: string[] = [ElementKind.AIR, ElementKind.EARTH, ElementKind.FIRE, ElementKind.WATER];
 
   public readonly defLabel: string = "Def.";
 
